@@ -1,13 +1,13 @@
 {
   "hero": {
-    "title": "Build Blazing-Fast Websites with Nuxt.js & Netlify",
-    "description": "Craft high-performing, SEO-friendly web experiences with the dynamic power of Nuxt.js and the speed of Netlify's global edge network.",
+    "title": "Master the Bayou with Hunt Tracker",
+    "description": "Track your kills, deaths, and extractions. Analyze your performance and become the ultimate hunter in Hunt: The Showdown.",
     "image": "images/hero.jpg",
-    "imageAlt": "Nuxt logo and title on abstract background",
+    "imageAlt": "Hunt Tracker Hero",
     "buttons": [
       {
-        "label": "Get Started Today",
-        "url": "https://www.netlify.com/"
+        "label": "Start Tracking",
+        "url": "/tracker"
       }
     ]
   },
@@ -101,4 +101,4 @@
       }
     ]
   }
-} 
+}
