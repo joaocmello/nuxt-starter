@@ -1,4 +1,4 @@
-import { ref, watch, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 
 export interface Match {
     id: string
@@ -19,40 +19,77 @@ export interface Match {
 
 export const useMatches = () => {
     const matches = ref<Match[]>([])
+    const isLoading = ref(false)
 
-    // Load from localStorage on mount
-    onMounted(() => {
+    const fetchMatches = async () => {
+        isLoading.value = true
+        try {
+            const data = await $fetch<Match[]>('/api/matches')
+            matches.value = data
+        } catch (e) {
+            console.error('Failed to fetch matches', e)
+        } finally {
+            isLoading.value = false
+        }
+    }
+
+    // Load from API on mount and check for migration
+    onMounted(async () => {
+        await fetchMatches()
+
+        // Migration logic: if localStorage has data, upload it and clear it
         const saved = localStorage.getItem('hunt_matches')
         if (saved) {
             try {
-                matches.value = JSON.parse(saved)
+                const localMatches = JSON.parse(saved) as Match[]
+                if (localMatches.length > 0) {
+                    console.info('Migrating localStorage matches to DB...')
+                    for (const match of localMatches) {
+                        await $fetch('/api/matches', {
+                            method: 'POST',
+                            body: match
+                        })
+                    }
+                    localStorage.removeItem('hunt_matches')
+                    console.info('Migration complete.')
+                    await fetchMatches() // Refresh list after migration
+                }
             } catch (e) {
-                console.error('Failed to parse matches from localStorage', e)
+                console.error('Failed to migrate matches', e)
             }
         }
     })
 
-    // Watch for changes and save to localStorage
-    watch(matches, (newMatches) => {
-        localStorage.setItem('hunt_matches', JSON.stringify(newMatches))
-    }, { deep: true })
-
-    const addMatch = (match: Omit<Match, 'id' | 'date'>) => {
-        const newMatch: Match = {
-            ...match,
-            id: crypto.randomUUID(),
-            date: new Date().toISOString()
+    const addMatch = async (match: Omit<Match, 'id' | 'date'>) => {
+        try {
+            await $fetch('/api/matches', {
+                method: 'POST',
+                body: match
+            })
+            await fetchMatches()
+        } catch (e) {
+            console.error('Failed to add match', e)
+            throw e
         }
-        matches.value.unshift(newMatch)
     }
 
-    const deleteMatch = (id: string) => {
-        matches.value = matches.value.filter(m => m.id !== id)
+    const deleteMatch = async (id: string) => {
+        try {
+            await $fetch(`/api/matches/${id}`, {
+                method: 'DELETE'
+            })
+            await fetchMatches()
+        } catch (e) {
+            console.error('Failed to delete match', e)
+            throw e
+        }
     }
 
     return {
         matches,
+        isLoading,
         addMatch,
-        deleteMatch
+        deleteMatch,
+        fetchMatches
     }
 }

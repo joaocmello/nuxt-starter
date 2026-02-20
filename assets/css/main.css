@@ -2,4 +2,21 @@
 
 @theme {
   --font-display: "Helvetica", "sans-serif";
+
+  /* Gritty Hunt: Showdown Palette */
+  --color-hunt-charcoal: #080C0D;
+  --color-hunt-victory: #47A510;
+  --color-hunt-rust: #840405;
+  --color-hunt-swamp: #3a4b3a;
+  --color-hunt-bone: #F2F2F2;
+  --color-hunt-gold: #b08d57;
+
+  /* Overriding default Tailwind colors for consistency */
+  --color-zinc-800: var(--color-hunt-charcoal);
+  --color-zinc-600: #4a4a4a;
+  --color-green-600: var(--color-hunt-rust);
+}
+
+body {
+  @apply bg-black text-hunt-bone font-display;
 }
