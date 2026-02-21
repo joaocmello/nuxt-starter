@@ -12,7 +12,11 @@ export default defineNuxtConfig({
   runtimeConfig: {
     databaseUrl: process.env.DATABASE_URL || process.env.NETLIFY_DATABASE_URL || "",
   },
+  ssr: true,
   experimental: { appManifest: false },
   modules: ["@nuxt/icon", "@nuxt/image"],
   compatibilityDate: "2024-12-18",
+  nitro: {
+    preset: 'netlify'
+  }
 });
