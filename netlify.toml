@@ -2,5 +2,5 @@
 ## https://docs.netlify.com/configure-builds/file-based-configuration/
 
 [build]
-  command = "npm run build"
+  command = "npm run generate"
   publish = "dist"
