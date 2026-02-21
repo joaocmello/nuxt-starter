@@ -48,7 +48,7 @@ const stats = computed(() => {
     extractionRate: ((extractions / totalMatches) * 100).toFixed(0) + '%',
     totalKills,
     totalDeaths,
-    totalBosses: filteredMatches.value.reduce((acc, match) => acc + (match.bossesBanished || 0), 0),
+    totalBounty: filteredMatches.value.reduce((acc, match) => acc + (match.bountyTokens || 0), 0),
     totalMoney
   }
 })
@@ -162,7 +162,7 @@ const formatDate = (dateStr: string) => {
                 <th class="px-4 py-4 font-medium uppercase tracking-wider text-center">
                   {{ selectedPlayer === 'All Players' ? 'Team K/D' : 'Player K/D' }}
                 </th>
-                <th class="px-4 py-4 font-medium uppercase tracking-wider text-center">Bosses</th>
+                <th class="px-4 py-4 font-medium uppercase tracking-wider text-center">Bounties</th>
                 <th class="px-8 py-4 text-right font-medium uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
@@ -174,8 +174,7 @@ const formatDate = (dateStr: string) => {
                     <span :class="{
                       'px-2 py-1 rounded text-[10px] font-black uppercase tracking-widest': true,
                       'bg-hunt-victory/20 text-hunt-victory border border-hunt-victory/30': match.result === 'Extraction',
-                      'bg-hunt-rust/20 text-hunt-rust border border-hunt-rust/50': match.result === 'Death',
-                      'bg-hunt-charcoal text-hunt-bone/60 border border-hunt-bone/20': match.result === 'Loss'
+                      'bg-hunt-rust/20 text-hunt-rust border border-hunt-rust/50': match.result === 'Death'
                     }">
                       {{ match.result }}
                     </span>
@@ -191,7 +190,7 @@ const formatDate = (dateStr: string) => {
                     </template>
                   </td>
 
-                  <td class="px-4 py-4 text-sm text-center text-hunt-bone/70">{{ match.bossesBanished }}</td>
+                  <td class="px-4 py-4 text-sm text-center text-hunt-bone/70">{{ match.bountyTokens }}</td>
                   <td class="px-8 py-4 text-right">
                     <button @click.stop="deleteMatch(match.id)" class="text-hunt-rust hover:text-hunt-rust transition-colors mr-4 text-xs font-bold uppercase tracking-tighter">
                       Delete

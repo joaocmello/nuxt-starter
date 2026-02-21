@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
         totalDeaths: match.totalDeaths,
         totalPlayers: match.totalPlayers,
         totalMoneyGained: match.totalMoneyGained,
-        bossesBanished: match.bossesBanished,
+        bountyTokens: match.bountyTokens,
         map: match.map,
         performance: (match as any).playerPerformances.reduce((acc: any, p: any) => {
             acc[p.playerName] = {

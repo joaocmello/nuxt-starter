@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
             totalDeaths: body.totalDeaths,
             totalPlayers: body.totalPlayers,
             totalMoneyGained: body.totalMoneyGained,
-            bossesBanished: body.bossesBanished,
+            bountyTokens: body.bountyTokens,
             map: body.map,
         }).returning();
 

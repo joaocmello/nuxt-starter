@@ -3,7 +3,7 @@ const { addMatch } = useMatches()
 
 const form = ref({
   result: 'Extraction' as const,
-  bossesBanished: 0,
+  bountyTokens: 0,
   map: 'Stillwater Bayou',
   players: [
     { name: '', kills: 0, deaths: 0, moneyGained: 0 }
@@ -26,7 +26,7 @@ const maps = [
   'Mammon\'s Gulch'
 ]
 
-const results = ['Extraction', 'Death', 'Loss']
+const results = ['Extraction', 'Death']
 
 const knownPlayers = [
   'Bonkersdud',
@@ -61,7 +61,7 @@ const submitMatch = () => {
 
   addMatch({
     result: form.value.result,
-    bossesBanished: form.value.bossesBanished,
+    bountyTokens: form.value.bountyTokens,
     map: form.value.map,
     totalKills: teamStats.value.totalKills,
     totalDeaths: teamStats.value.totalDeaths,
@@ -73,7 +73,7 @@ const submitMatch = () => {
   // Reset form
   form.value = {
     result: 'Extraction',
-    bossesBanished: 0,
+    bountyTokens: 0,
     map: 'Stillwater Bayou',
     players: [{ name: '', kills: 0, deaths: 0, moneyGained: 0 }]
   }
@@ -105,8 +105,8 @@ const submitMatch = () => {
 
         <!-- Bosses Banished -->
         <div>
-          <label class="block text-sm font-medium text-hunt-bone/70 mb-2">Bosses Banished</label>
-          <input type="number" v-model.number="form.bossesBanished" min="0" max="4" class="w-full px-4 py-2 rounded-lg bg-black/40 border border-hunt-bone/20 text-hunt-bone focus:ring-2 focus:ring-hunt-rust focus:border-transparent outline-none transition-all" />
+          <label class="block text-sm font-medium text-hunt-bone/70 mb-2">Bounty Tokens</label>
+          <input type="number" v-model.number="form.bountyTokens" min="0" max="4" class="w-full px-4 py-2 rounded-lg bg-black/40 border border-hunt-bone/20 text-hunt-bone focus:ring-2 focus:ring-hunt-rust focus:border-transparent outline-none transition-all" />
         </div>
       </div>
 

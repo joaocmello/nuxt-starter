@@ -9,7 +9,7 @@ export const matches = pgTable('matches', {
     totalDeaths: integer('total_deaths').notNull().default(0),
     totalPlayers: integer('total_players').notNull().default(1),
     totalMoneyGained: integer('total_money_gained').notNull().default(0),
-    bossesBanished: integer('bosses_banished').notNull().default(0),
+    bountyTokens: integer('bounty_tokens').notNull().default(0),
     map: text('map').notNull(),
 });
 

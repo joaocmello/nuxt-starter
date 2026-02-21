@@ -3,12 +3,12 @@ import { ref, onMounted } from 'vue'
 export interface Match {
     id: string
     date: string
-    result: 'Extraction' | 'Death' | 'Loss'
+    result: 'Extraction' | 'Death'
     totalKills: number
     totalDeaths: number
     totalPlayers: number
     totalMoneyGained: number
-    bossesBanished: number
+    bountyTokens: number
     map: string
     performance: Record<string, {
         kills: number
