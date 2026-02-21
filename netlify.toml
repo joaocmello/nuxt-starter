@@ -3,4 +3,5 @@
 
 [build]
   command = "npm run build"
-  publish = ".output/public"
+  publish = "dist"
+  functions = ".netlify/functions-internal"
